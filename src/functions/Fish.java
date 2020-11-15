@@ -14,6 +14,7 @@ public class Fish extends Sandwich {
 
     @Override
     public double price() {
+        if (extras == null) return 12.99;
         return 12.99 + extras.size()*PER_EXTRA;
     }
 
