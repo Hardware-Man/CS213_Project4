@@ -2,7 +2,7 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
@@ -21,13 +21,13 @@
                         <Font size="36.0" />
                      </font>
                   </Text>
-                  <TextArea fx:id="showOrder" prefHeight="341.0" prefWidth="480.0" />
+                  <ListView fx:id="showOrder" prefHeight="319.0" prefWidth="600.0" />
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                      <children>
                         <Button mnemonicParsing="false" onAction="#duplicateOrder" text="Duplicate Order Line" />
                         <Button mnemonicParsing="false" onAction="#removeOrder" text="Remove Order Line" />
                         <Button mnemonicParsing="false" onAction="#clearOrder" text="Clear Order" />
-                        <Button mnemonicParsing="false" onAction="#closeWindow" text="Back" />
+                        <Button fx:id="backButton" mnemonicParsing="false" onAction="#closeWindow" text="Back" />
                         <Button mnemonicParsing="false" onAction="#exportOrder" text="Export Order" />
                         <Label text="Price: " />
                         <TextField fx:id="orderPrice" editable="false" prefHeight="25.0" prefWidth="107.0" />

@@ -6,17 +6,18 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.stage.Stage;
 
+
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class Controller1 implements Initializable {
-    FXMLLoader loader = new FXMLLoader(getClass().getResource("stage2.fxml"));
-    Controller2 controller2 = loader.getController();
-
     Image chickenImage = new Image("chicken.png");
     Image fishImage = new Image("fish.png");
     Image beefImage = new Image("beef.png");
@@ -31,6 +32,9 @@ public class Controller1 implements Initializable {
     ObservableList<Extra> chosenIngList = FXCollections.observableArrayList();
     Sandwich sandwich;
     Order order = new Order();
+
+    @FXML
+    private Button orderDetailsButton;
 
     @FXML
     private ComboBox<String> sandwichTypeDropdown;
@@ -49,6 +53,7 @@ public class Controller1 implements Initializable {
 
     @FXML
     private ListView<Extra> chosenIngredients;
+
 
     @FXML
     void addIngredient() {
@@ -92,8 +97,12 @@ public class Controller1 implements Initializable {
     }
 
     @FXML
-    void openOrders() {
-
+    void openOrders() throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("stage2.fxml"));
+        Stage stage = new Stage();
+        stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("stage2.fxml"))));
+        Controller2 controller2 = (Controller2) loader.getController();
+        controller2.setController1(this);
     }
 
     @FXML

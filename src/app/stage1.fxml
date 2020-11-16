@@ -45,7 +45,7 @@
                <children>
                   <Button mnemonicParsing="false" onAction="#addToOrderPress" text="Add to Order" />
                   <TextFlow prefHeight="42.0" prefWidth="11.0" />
-                  <Button mnemonicParsing="false" onAction="#openOrders" text="Order Details" />
+                  <Button fx:id="orderDetailsButton" mnemonicParsing="false" onAction="#openOrders" text="Order Details" />
                   <TextFlow prefHeight="31.0" prefWidth="13.0" />
                   <Label text="Price: " />
                   <TextField fx:id="sandwichPrice" editable="false" />

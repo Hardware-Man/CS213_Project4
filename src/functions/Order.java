@@ -14,6 +14,10 @@ public class Order implements Customizable {
         lineNumber = 0;
     }
 
+    public ArrayList<OrderLine> getOrderLines(){
+        return orderLines;
+    }
+
     public static int getLineNumber() {
         return lineNumber;
     }
@@ -45,4 +49,13 @@ public class Order implements Customizable {
         orderLines.clear();
         resetLineNumber();
     }
+
+    public double totalPrice(){
+        double price = 0;
+        for(OrderLine o:orderLines){
+            price += o.getSandwich().price();
+        }
+        return price;
+    }
+
 }
