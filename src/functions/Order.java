@@ -32,4 +32,9 @@ public class Order implements Customizable {
         }
         return false;
     }
+
+    public void clear(){
+        orderLines.clear();
+        resetLineNumber();
+    }
 }

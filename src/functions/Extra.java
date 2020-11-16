@@ -7,7 +7,7 @@ public class Extra {
         return name;
     }
 
-    public void setName(String name) {
+    public Extra(String name){
         this.name = name;
     }
 
@@ -17,5 +17,10 @@ public class Extra {
             return ((Extra) obj).getName().equals(name);
         }
         return false;
+    }
+
+    @Override
+    public String toString(){
+        return getName();
     }
 }
