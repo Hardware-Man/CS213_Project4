@@ -1,5 +1,6 @@
 package functions;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 /**
  *Class representing an entire Order
@@ -86,11 +87,12 @@ public class Order implements Customizable {
      * @return total price
      */
     public double totalPrice(){
+        DecimalFormat moneyFormat = new DecimalFormat("0.00");
         double price = 0;
         for(OrderLine o:orderLines){
             price += o.getSandwich().price();
         }
-        return price;
+        return Double.parseDouble(moneyFormat.format(price));
     }
 
 }

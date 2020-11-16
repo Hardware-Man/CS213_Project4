@@ -41,6 +41,12 @@ public class Controller2 implements Initializable {
      */
     @FXML
     void clearOrder() {
+
+        for(OrderLine o:controller1.order.getOrderLines()) {
+            System.out.println(o);
+        }
+        System.out.println(controller1.order.totalPrice());
+
         ordersStage2.clear();
         controller1.order.clear();
     }
@@ -61,10 +67,12 @@ public class Controller2 implements Initializable {
     @FXML
     void duplicateOrder() {
         OrderLine selectedOrder = showOrder.getSelectionModel().getSelectedItem();
-        OrderLine newOrder = new OrderLine(Order.getLineNumber()+1,
-                selectedOrder.getSandwich(),selectedOrder.getSandwich().price());
-        controller1.order.add(newOrder);
-        ordersStage2.add(newOrder);
+        if(selectedOrder != null) {
+            OrderLine newOrder = new OrderLine(Order.getLineNumber() + 1,
+                    selectedOrder.getSandwich(), selectedOrder.getSandwich().price());
+            controller1.order.add(newOrder);
+            ordersStage2.add(newOrder);
+        }
     }
 
     /**
@@ -111,7 +119,7 @@ public class Controller2 implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        ordersStage2 = FXCollections.observableArrayList(controller1.order.getOrderLines());
+        ordersStage2.addAll(controller1.order.getOrderLines());
 
         for(OrderLine o:controller1.order.getOrderLines()) {
             System.out.println(o);
