@@ -58,7 +58,7 @@ public class Controller1 implements Initializable {
     static ObservableList<OrderLine> orderLines = FXCollections.observableArrayList(order.getOrderLines());
 
     @FXML
-    static Button orderDetailsButton;
+    static Button orderDetailsButton = new Button();
 
     @FXML
     private ComboBox<String> sandwichTypeDropdown;

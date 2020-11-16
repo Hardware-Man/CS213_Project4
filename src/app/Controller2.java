@@ -11,6 +11,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.net.URL;
+import java.text.DecimalFormat;
 import java.util.ResourceBundle;
 
 /**
@@ -19,6 +20,7 @@ import java.util.ResourceBundle;
  * @author Kaivalya Mishra, Ridwanur Sarder
  */
 public class Controller2 implements Initializable {
+    DecimalFormat moneyFormat = new DecimalFormat("0.00");
 
     @FXML
     private ListView<OrderLine> showOrder;
@@ -36,6 +38,8 @@ public class Controller2 implements Initializable {
     void clearOrder() {
         Controller1.orderLines.clear();
         Controller1.order.clear();
+        orderPrice.clear();
+        orderPrice.appendText("$" + moneyFormat.format(Controller1.order.totalPrice()));
     }
 
     /**
@@ -59,6 +63,8 @@ public class Controller2 implements Initializable {
                     selectedOrder.getSandwich(), selectedOrder.getSandwich().price());
             Controller1.order.add(newOrder);
             Controller1.orderLines.add(newOrder);
+            orderPrice.clear();
+            orderPrice.appendText("$" + moneyFormat.format(Controller1.order.totalPrice()));
         }
     }
 
@@ -98,7 +104,7 @@ public class Controller2 implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         showOrder.setItems(Controller1.orderLines);
-        orderPrice.appendText("$" + Controller1.order.totalPrice());
+        orderPrice.appendText("$" + moneyFormat.format(Controller1.order.totalPrice()));
     }
 
 
