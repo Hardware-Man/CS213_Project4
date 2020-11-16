@@ -79,7 +79,7 @@ public class Controller1 implements Initializable {
     private ListView<Extra> chosenIngredients;
 
     @FXML
-    private Button addToOrderButton;
+    static Button addToOrderButton = new Button();
 
 
     /**
@@ -148,7 +148,7 @@ public class Controller1 implements Initializable {
         Stage stage = new Stage();
         stage.setTitle("Order Details");
         stage.setScene(new Scene(root));
-        orderDetailsButton.setDisable(true);
+        Controller1.orderDetailsButton.setDisable(true);
         stage.setOnCloseRequest(windowEvent -> orderDetailsButton.setDisable(false));
         stage.show();
     }
