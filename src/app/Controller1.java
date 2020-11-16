@@ -20,6 +20,11 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+/**
+ *Primary controller class for sandiwch ordering GUI
+ *
+ * @author Kaivalya Mishra, Ridwanur Sarder
+ */
 public class Controller1 implements Initializable {
     Image chickenImage = new Image("chicken.png");
     Image fishImage = new Image("fish.png");
@@ -61,6 +66,9 @@ public class Controller1 implements Initializable {
     private ListView<Extra> chosenIngredients;
 
 
+    /**
+     * Adds an ingredient to the menu of what ingredients the client wants in burger.
+     */
     @FXML
     void addIngredient() {
         ObservableList<Extra> pickedIngredients = availableIngredients.getSelectionModel().getSelectedItems();
@@ -77,6 +85,9 @@ public class Controller1 implements Initializable {
         sandwichPrice.appendText("$" + sandwich.price());
     }
 
+    /**
+     * Removes an ingredient from menu of what ingredients the client wants in burger
+     */
     @FXML
     void removeIngredient() {
         ObservableList<Extra> pickedIngredients = chosenIngredients.getSelectionModel().getSelectedItems();
@@ -87,6 +98,9 @@ public class Controller1 implements Initializable {
         sandwichPrice.appendText("$" + sandwich.price());
     }
 
+    /**
+     * Clears all ingredients from menu of what ingredient client wants in burger
+     */
     @FXML
     void clearIngredient() {
         extraIngList.addAll(chosenIngList);
@@ -96,6 +110,9 @@ public class Controller1 implements Initializable {
         sandwichPrice.appendText("$" + sandwich.price());
     }
 
+    /**
+     * Adds an order line to order for current sandwich
+     */
     @FXML
     void addToOrderPress() {
         OrderLine orderline = new OrderLine(Order.getLineNumber() + 1,sandwich,sandwich.price());
@@ -104,9 +121,14 @@ public class Controller1 implements Initializable {
         for(OrderLine o:order.getOrderLines()) {
             System.out.println(o);
         }
+        System.out.println(order.totalPrice());
 
     }
 
+    /**
+     * Opens order details window
+     * @throws IOException
+     */
     @FXML
     void openOrders() throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("stage2.fxml"));
@@ -120,6 +142,9 @@ public class Controller1 implements Initializable {
         stage.show();
     }
 
+    /**
+     * Picks a type of sandwich based on user choice
+     */
     @FXML
     void pickSandwichType() {
         switch(sandwichTypeDropdown.getSelectionModel().getSelectedItem()) {
@@ -145,11 +170,13 @@ public class Controller1 implements Initializable {
         sandwich.addAll(chosenIngList);
         sandwichPrice.clear();
         sandwichPrice.appendText("$" + sandwich.price());
-
-
-
     }
 
+    /**
+     * Initializes the sandwich ordering primary GUI
+     * @param url
+     * @param resourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         sandwich = new Chicken();

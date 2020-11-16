@@ -17,9 +17,15 @@ import java.io.PrintWriter;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+/**
+ *Secondary controller class for sandiwch order details
+ *
+ * @author Kaivalya Mishra, Ridwanur Sarder
+ */
 public class Controller2 implements Initializable {
     public Controller1 controller1 = new Controller1();
-    ObservableList<OrderLine> orders = FXCollections.observableArrayList();
+
+    ObservableList<OrderLine> ordersStage2 = FXCollections.observableArrayList();
 
     @FXML
     private ListView<OrderLine> showOrder;
@@ -30,28 +36,41 @@ public class Controller2 implements Initializable {
     @FXML
     private Button backButton;
 
+    /**
+     * Clears all the sandwiches in the order
+     */
     @FXML
     void clearOrder() {
-        orders.clear();
+        ordersStage2.clear();
         controller1.order.clear();
     }
 
+    /**
+     * Closes order details window.
+     */
     @FXML
-    void closeWindow(ActionEvent event) {
+    void closeWindow() {
         Stage stage = (Stage) backButton.getScene().getWindow();
         controller1.orderDetailsButton.setDisable(false);
         stage.close();
     }
 
+    /**
+     * Duplicates and adds an order line to the order
+     */
     @FXML
     void duplicateOrder() {
         OrderLine selectedOrder = showOrder.getSelectionModel().getSelectedItem();
         OrderLine newOrder = new OrderLine(Order.getLineNumber()+1,
                 selectedOrder.getSandwich(),selectedOrder.getSandwich().price());
         controller1.order.add(newOrder);
-        orders.add(newOrder);
+        ordersStage2.add(newOrder);
     }
 
+    /**
+     * Exports order into a text file named Order.txt
+     * @param event
+     */
     @FXML
     void exportOrder(ActionEvent event) {
         File fileToExport = new File("Order.txt");
@@ -67,22 +86,40 @@ public class Controller2 implements Initializable {
 
     }
 
+    /**
+     * Removes an order line from the order
+     */
     @FXML
-    void removeOrder(ActionEvent event) {
+    void removeOrder() {
         OrderLine selectedOrder = showOrder.getSelectionModel().getSelectedItem();
         controller1.order.remove(selectedOrder);
-        orders.remove(selectedOrder);
+        ordersStage2.remove(selectedOrder);
     }
 
+    /**
+     * Sets a parent controller for this one to share data with.
+     * @param controller1 to be set as parent controller
+     */
     void setController1(Controller1 controller1){
         this.controller1 = controller1;
     }
 
-
+    /**
+     * Initializes sandwich order details window
+     * @param url
+     * @param resourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        orders = FXCollections.observableArrayList(controller1.order.getOrderLines());
-        showOrder.setItems(orders);
+        ordersStage2 = FXCollections.observableArrayList(controller1.order.getOrderLines());
+
+        for(OrderLine o:controller1.order.getOrderLines()) {
+            System.out.println(o);
+        }
+        System.out.println(controller1.order.totalPrice());
+
+
+        showOrder.setItems(ordersStage2);
         orderPrice.appendText("$" + controller1.order.totalPrice());
     }
 

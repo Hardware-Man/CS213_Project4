@@ -5,7 +5,11 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-
+/**
+ *Driver and starter class for sandwich ordering GUI
+ *
+ * @author Kaivalya Mishra, Ridwanur Sarder
+ */
 public class Main extends Application {
 
     @Override
