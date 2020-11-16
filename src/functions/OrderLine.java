@@ -5,6 +5,12 @@ public class OrderLine {
     private Sandwich sandwich;
     private double price;
 
+    public OrderLine(int lineNumber,Sandwich sandwich,double price){
+        this.lineNumber = lineNumber;
+        this.sandwich = sandwich;
+        this.price = price;
+    }
+
     public void setSandwich(Sandwich sandwich) {
         price = sandwich.price();
         this.sandwich = sandwich;
@@ -24,7 +30,7 @@ public class OrderLine {
 
     @Override
     public String toString() {
-        return lineNumber + "," + price + "," + sandwich.toString();
+        return lineNumber  + ", " + sandwich.toString()+ ", " + price;
     }
 
     @Override

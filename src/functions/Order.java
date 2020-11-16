@@ -10,6 +10,14 @@ public class Order implements Customizable {
         lineNumber = 0;
     }
 
+    public Order(){
+        lineNumber = 0;
+    }
+
+    public static int getLineNumber() {
+        return lineNumber;
+    }
+
     @Override
     public boolean add(Object obj) {
         if (obj instanceof OrderLine) {

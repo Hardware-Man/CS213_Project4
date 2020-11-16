@@ -1,5 +1,7 @@
 package functions;
 
+import javafx.collections.ObservableList;
+
 import java.util.ArrayList;
 
 public abstract class Sandwich implements Customizable {
@@ -9,15 +11,38 @@ public abstract class Sandwich implements Customizable {
 
     public abstract double price();
 
+    public String getBasicIngredients(Extra[] ingredients){
+        String ingredientString = "";
+        for(Extra e:ingredients){
+            ingredientString = ingredientString.concat(e.getName() + "\n");
+        }
+        return ingredientString;
+    }
+
+    public String getBasicIngredientsOrderDetails(Extra[] ingredients){
+        String ingredientString = "";
+        for(Extra e:ingredients){
+            ingredientString = ingredientString.concat(e.getName() + ", ");
+        }
+        return ingredientString;
+    }
+
     @Override
     public String toString() {
-        StringBuilder extrasString = new StringBuilder("");
-        for (int i = 0; i < extras.size(); i++) {
-            if (i == extras.size()-1) {
-                extrasString.append(extras.get(i).getName());
-            }
-            else {
-                extrasString.append(extras.get(i).getName()).append(",");
+        StringBuilder extrasString = new StringBuilder();
+        extrasString.append("Extra: ");
+
+        if(extras != null) {
+            if(extras.size() == 0){
+                extrasString.append("None, ");
+            }else {
+                for (int i = 0; i < extras.size(); i++) {
+                    if (i == extras.size() - 1) {
+                        extrasString.append(extras.get(i).getName());
+                    } else {
+                        extrasString.append(extras.get(i).getName()).append(",");
+                    }
+                }
             }
         }
         return extrasString.toString();
@@ -26,7 +51,8 @@ public abstract class Sandwich implements Customizable {
     @Override
     public boolean add(Object obj) {
         if (obj instanceof Extra) {
-            if (extras.size() < MAX_EXTRAS) {
+            if(extras == null)extras = new ArrayList<>();
+            if (checkForSpace()) {
                 if (!extras.contains(obj)) {
                     return extras.add((Extra) obj);
                 }
@@ -35,12 +61,48 @@ public abstract class Sandwich implements Customizable {
         return false;
     }
 
+    public<Extra> void addAll(ObservableList<Extra> list){
+        for(Extra e:list){
+            if(!add(e))return;
+        }
+    }
+
+    public boolean checkForSpace(){
+        if(extras == null)return true;
+        if (extras.size() < MAX_EXTRAS) {
+            return true;
+        }
+        return false;
+    }
+
+    public<T> boolean checkForSpace(ObservableList<T> list){
+        if(extras == null){
+            if(list.size() <= 6) {
+                return true;
+            } else return false;
+        }
+        if(extras.size() + list.size() > MAX_EXTRAS){
+            return false;
+        }
+        return true;
+    }
+
     @Override
     public boolean remove(Object obj) {
         if (obj instanceof Extra) {
+            if(extras == null) return false;
             return extras.remove(obj);
         }
         return false;
     }
 
+    public<Extra> void removeAll(ObservableList<Extra> list){
+        for(Extra e:list){
+            if(!remove(e))return;
+        }
+    }
+
+    public void clear(){
+        extras.clear();
+    }
 }

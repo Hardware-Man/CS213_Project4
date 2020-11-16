@@ -1,28 +1,23 @@
 package functions;
 
+import java.text.DecimalFormat;
+
 public class Fish extends Sandwich {
 
-    private Extra[] ingredients = {new Extra("Grilled Snapper"), new Extra("Cilantro"),new Extra("Lime")};
-
-    public String getBasicIngredients(){
-        String ingredientString = "";
-        for(Extra e:ingredients){
-            ingredientString = ingredientString.concat(e.getName() + "\n");
-        }
-        return ingredientString;
-    }
+    public Extra[] ingredients = {new Extra("Grilled Snapper"), new Extra("Cilantro"),new Extra("Lime")};
 
     @Override
     public double price() {
+        DecimalFormat moneyFormat = new DecimalFormat("0.00");
         if (extras == null) return 12.99;
-        return 12.99 + extras.size()*PER_EXTRA;
+        return Double.parseDouble(moneyFormat.format(12.99 + extras.size()*PER_EXTRA));
     }
 
     @Override
     public String toString() {
         if (super.toString().isBlank()) {
-            return "Fish";
+            return "Fish:" + getBasicIngredientsOrderDetails(ingredients);
         }
-        return "Fish," + super.toString();
+        return "Fish:" + getBasicIngredientsOrderDetails(ingredients) + super.toString();
     }
 }
