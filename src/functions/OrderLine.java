@@ -62,7 +62,7 @@ public class OrderLine {
     @Override
     public boolean equals(Object obj) {
         if (obj instanceof OrderLine) {
-            return (((OrderLine) obj).getLineNumber() == lineNumber) && obj.toString().equals(sandwich.toString());
+            return (((OrderLine) obj).getLineNumber() == lineNumber) && obj.toString().equals(this.toString());
         }
         return false;
     }
