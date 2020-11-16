@@ -102,10 +102,7 @@ public abstract class Sandwich implements Customizable {
      */
     public boolean checkForSpace(){
         if(extras == null)return true;
-        if (extras.size() < MAX_EXTRAS) {
-            return true;
-        }
-        return false;
+        return extras.size() < MAX_EXTRAS;
     }
 
     /**
@@ -116,14 +113,9 @@ public abstract class Sandwich implements Customizable {
      */
     public<T> boolean checkForSpace(ObservableList<T> list){
         if(extras == null){
-            if(list.size() <= 6) {
-                return true;
-            } else return false;
+            return list.size() <= 6;
         }
-        if(extras.size() + list.size() > MAX_EXTRAS){
-            return false;
-        }
-        return true;
+        return extras.size() + list.size() <= MAX_EXTRAS;
     }
 
     /**

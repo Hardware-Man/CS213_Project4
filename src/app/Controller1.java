@@ -3,7 +3,6 @@ package app;
 import functions.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -13,7 +12,6 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
 
 
 import java.io.IOException;
@@ -21,32 +19,46 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 /**
- *Primary controller class for sandiwch ordering GUI
+ *Primary controller class for sandwich ordering GUI
  *
  * @author Kaivalya Mishra, Ridwanur Sarder
  */
 public class Controller1 implements Initializable {
-    Image chickenImage = new Image("chicken.png");
-    Image fishImage = new Image("fish.png");
-    Image beefImage = new Image("beef.png");
-    ObservableList<String> sandwiches = FXCollections.observableArrayList("Chicken","Beef","Fish");
-    ObservableList<Extra> extraIngList = FXCollections.observableArrayList(
+    @FXML
+    private final Image chickenImage = new Image("chicken.png");
+
+    @FXML
+    private final Image fishImage = new Image("fish.png");
+
+    @FXML
+    private final Image beefImage = new Image("beef.png");
+
+    @FXML
+    private final ObservableList<String> sandwiches = FXCollections.observableArrayList("Chicken","Beef","Fish");
+
+    @FXML
+    private final ObservableList<Extra> extraIngList = FXCollections.observableArrayList(
             new Extra("Lettuce"),new Extra("Tomatoes"),
             new Extra("Olives"),new Extra("Mozzarella"),
             new Extra("Blue Cheese"),new Extra("Chili"),
             new Extra("Potatoes"),new Extra("Fries"),
             new Extra("Avocado"),new Extra("Ketchup")
     );
-    ObservableList<Extra> chosenIngList = FXCollections.observableArrayList();
-    Sandwich sandwich;
-    Order order = new Order();
-    ObservableList<OrderLine> orderLines = FXCollections.observableArrayList(order.getOrderLines());
 
     @FXML
-    public Controller2 controller2;
+    private final ObservableList<Extra> chosenIngList = FXCollections.observableArrayList();
 
     @FXML
-    Button orderDetailsButton;
+    private Sandwich sandwich;
+
+    @FXML
+    static Order order = new Order();
+
+    @FXML
+    static ObservableList<OrderLine> orderLines = FXCollections.observableArrayList(order.getOrderLines());
+
+    @FXML
+    static Button orderDetailsButton;
 
     @FXML
     private ComboBox<String> sandwichTypeDropdown;
@@ -119,23 +131,17 @@ public class Controller1 implements Initializable {
         OrderLine orderline = new OrderLine(Order.getLineNumber() + 1,sandwich,sandwich.price());
         order.add(orderline);
         pickSandwichType();
-        for(OrderLine o:order.getOrderLines()) {
-            System.out.println(o);
-        }
         orderLines = FXCollections.observableArrayList(order.getOrderLines());
-        System.out.println(order.totalPrice() + " " + orderLines.size());
     }
 
     /**
      * Opens order details window
-     * @throws IOException
+     * @throws IOException a
      */
     @FXML
     void openOrders() throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("stage2.fxml"));
         Parent root = loader.load();
-        controller2 = loader.getController();
-        controller2.setController1(this);
         Stage stage = new Stage();
         stage.setScene(new Scene(root));
         orderDetailsButton.setDisable(true);
@@ -175,8 +181,8 @@ public class Controller1 implements Initializable {
 
     /**
      * Initializes the sandwich ordering primary GUI
-     * @param url
-     * @param resourceBundle
+     * @param url Unused
+     * @param resourceBundle Unused
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
