@@ -78,6 +78,9 @@ public class Controller1 implements Initializable {
     @FXML
     private ListView<Extra> chosenIngredients;
 
+    @FXML
+    private Button addToOrderButton;
+
 
     /**
      * Adds an ingredient to the menu of what ingredients the client wants in burger.
@@ -143,6 +146,7 @@ public class Controller1 implements Initializable {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("stage2.fxml"));
         Parent root = loader.load();
         Stage stage = new Stage();
+        stage.setTitle("Order Details");
         stage.setScene(new Scene(root));
         orderDetailsButton.setDisable(true);
         stage.setOnCloseRequest(windowEvent -> orderDetailsButton.setDisable(false));

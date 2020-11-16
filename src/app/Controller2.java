@@ -76,12 +76,13 @@ public class Controller2 implements Initializable {
         File fileToExport = new File("Order.txt");
         try{
             PrintWriter output = new PrintWriter(fileToExport);
-            for(OrderLine o:Controller1.order.getOrderLines()){
+            for(OrderLine o:Controller1.orderLines){
                 output.write(o.toString() + "\n");
             }
             Alert a = new Alert(Alert.AlertType.CONFIRMATION);
             a.setContentText("File exported successfully.");
             a.show();
+            output.close();
         }catch(FileNotFoundException ignored){}
 
     }
@@ -94,6 +95,9 @@ public class Controller2 implements Initializable {
         OrderLine selectedOrder = showOrder.getSelectionModel().getSelectedItem();
         Controller1.order.remove(selectedOrder);
         Controller1.orderLines.remove(selectedOrder);
+        orderPrice.clear();
+        orderPrice.appendText("$" + moneyFormat.format(Controller1.order.totalPrice()));
+
     }
 
     /**
