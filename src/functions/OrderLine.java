@@ -30,7 +30,7 @@ public class OrderLine {
 
     @Override
     public String toString() {
-        return lineNumber  + ", " + sandwich.toString()+ ", " + price;
+        return lineNumber  + ", " + sandwich.toString()+ ", $" + price;
     }
 
     @Override

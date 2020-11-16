@@ -19,7 +19,7 @@ import java.util.ResourceBundle;
 
 public class Controller2 implements Initializable {
     public Controller1 controller1 = new Controller1();
-    ObservableList<OrderLine> orders = FXCollections.observableArrayList(controller1.order.getOrderLines());
+    ObservableList<OrderLine> orders = FXCollections.observableArrayList();
 
     @FXML
     private ListView<OrderLine> showOrder;
@@ -39,6 +39,7 @@ public class Controller2 implements Initializable {
     @FXML
     void closeWindow(ActionEvent event) {
         Stage stage = (Stage) backButton.getScene().getWindow();
+        controller1.orderDetailsButton.setDisable(false);
         stage.close();
     }
 
@@ -77,8 +78,10 @@ public class Controller2 implements Initializable {
         this.controller1 = controller1;
     }
 
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        orders = FXCollections.observableArrayList(controller1.order.getOrderLines());
         showOrder.setItems(orders);
         orderPrice.appendText("$" + controller1.order.totalPrice());
     }

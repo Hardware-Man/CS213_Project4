@@ -33,8 +33,8 @@ public abstract class Sandwich implements Customizable {
         extrasString.append("Extra: ");
 
         if(extras != null) {
-            if(extras.size() == 0){
-                extrasString.append("None, ");
+            if(extras.isEmpty()){
+                extrasString.append("None");
             }else {
                 for (int i = 0; i < extras.size(); i++) {
                     if (i == extras.size() - 1) {
@@ -44,7 +44,7 @@ public abstract class Sandwich implements Customizable {
                     }
                 }
             }
-        }
+        }else extrasString.append("None");
         return extrasString.toString();
     }
 
@@ -103,6 +103,8 @@ public abstract class Sandwich implements Customizable {
     }
 
     public void clear(){
-        extras.clear();
+        if(extras != null) {
+            extras.clear();
+        }
     }
 }

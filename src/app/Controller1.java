@@ -3,14 +3,17 @@ package app;
 import functions.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 
 import java.io.IOException;
@@ -34,7 +37,10 @@ public class Controller1 implements Initializable {
     Order order = new Order();
 
     @FXML
-    private Button orderDetailsButton;
+    public Controller2 controller2;
+
+    @FXML
+    Button orderDetailsButton;
 
     @FXML
     private ComboBox<String> sandwichTypeDropdown;
@@ -94,15 +100,24 @@ public class Controller1 implements Initializable {
     void addToOrderPress() {
         OrderLine orderline = new OrderLine(Order.getLineNumber() + 1,sandwich,sandwich.price());
         order.add(orderline);
+        pickSandwichType();
+        for(OrderLine o:order.getOrderLines()) {
+            System.out.println(o);
+        }
+
     }
 
     @FXML
     void openOrders() throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("stage2.fxml"));
-        Stage stage = new Stage();
-        stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("stage2.fxml"))));
-        Controller2 controller2 = (Controller2) loader.getController();
+        Parent root = loader.load();
+        controller2 = loader.getController();
         controller2.setController1(this);
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root));
+        orderDetailsButton.setDisable(true);
+        stage.setOnCloseRequest(windowEvent -> orderDetailsButton.setDisable(false));
+        stage.show();
     }
 
     @FXML
