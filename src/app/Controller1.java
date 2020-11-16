@@ -58,7 +58,7 @@ public class Controller1 implements Initializable {
     static ObservableList<OrderLine> orderLines = FXCollections.observableArrayList(order.getOrderLines());
 
     @FXML
-    static Button orderDetailsButton = new Button();
+    private Button orderDetailsButton;
 
     @FXML
     private ComboBox<String> sandwichTypeDropdown;
@@ -79,7 +79,7 @@ public class Controller1 implements Initializable {
     private ListView<Extra> chosenIngredients;
 
     @FXML
-    static Button addToOrderButton = new Button();
+    private Button addToOrderButton;
 
 
     /**
@@ -148,8 +148,12 @@ public class Controller1 implements Initializable {
         Stage stage = new Stage();
         stage.setTitle("Order Details");
         stage.setScene(new Scene(root));
-        Controller1.orderDetailsButton.setDisable(true);
-        stage.setOnCloseRequest(windowEvent -> orderDetailsButton.setDisable(false));
+        orderDetailsButton.setDisable(true);
+        addToOrderButton.setDisable(true);
+        stage.setOnCloseRequest(windowEvent -> {
+            orderDetailsButton.setDisable(false);
+            addToOrderButton.setDisable(false);
+        });
         stage.show();
     }
 

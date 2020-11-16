@@ -48,7 +48,6 @@ public class Controller2 implements Initializable {
     @FXML
     void closeWindow() {
         Stage stage = (Stage) backButton.getScene().getWindow();
-        Controller1.orderDetailsButton.setDisable(false);
         stage.close();
     }
 
