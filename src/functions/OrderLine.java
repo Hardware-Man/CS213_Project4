@@ -6,8 +6,8 @@ package functions;
  */
 public class OrderLine {
     private int lineNumber;
-    private Sandwich sandwich;
-    private double price;
+    private final Sandwich sandwich;
+    private final double price;
 
     /**
      * Parametrized constructor to create an instance of OrderLine
