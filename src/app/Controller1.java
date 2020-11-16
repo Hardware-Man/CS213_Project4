@@ -40,6 +40,7 @@ public class Controller1 implements Initializable {
     ObservableList<Extra> chosenIngList = FXCollections.observableArrayList();
     Sandwich sandwich;
     Order order = new Order();
+    ObservableList<OrderLine> orderLines = FXCollections.observableArrayList(order.getOrderLines());
 
     @FXML
     public Controller2 controller2;
@@ -121,8 +122,8 @@ public class Controller1 implements Initializable {
         for(OrderLine o:order.getOrderLines()) {
             System.out.println(o);
         }
-        System.out.println(order.totalPrice());
-
+        orderLines = FXCollections.observableArrayList(order.getOrderLines());
+        System.out.println(order.totalPrice() + " " + orderLines.size());
     }
 
     /**

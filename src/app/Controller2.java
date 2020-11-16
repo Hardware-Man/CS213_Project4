@@ -25,8 +25,6 @@ import java.util.ResourceBundle;
 public class Controller2 implements Initializable {
     public Controller1 controller1 = new Controller1();
 
-    ObservableList<OrderLine> ordersStage2 = FXCollections.observableArrayList();
-
     @FXML
     private ListView<OrderLine> showOrder;
 
@@ -45,9 +43,9 @@ public class Controller2 implements Initializable {
         for(OrderLine o:controller1.order.getOrderLines()) {
             System.out.println(o);
         }
-        System.out.println(controller1.order.totalPrice());
+        System.out.println(controller1.order.totalPrice() + " " + controller1.orderLines.size());
 
-        ordersStage2.clear();
+        controller1.orderLines.clear();
         controller1.order.clear();
     }
 
@@ -71,7 +69,7 @@ public class Controller2 implements Initializable {
             OrderLine newOrder = new OrderLine(Order.getLineNumber() + 1,
                     selectedOrder.getSandwich(), selectedOrder.getSandwich().price());
             controller1.order.add(newOrder);
-            ordersStage2.add(newOrder);
+            controller1.orderLines.add(newOrder);
         }
     }
 
@@ -101,7 +99,7 @@ public class Controller2 implements Initializable {
     void removeOrder() {
         OrderLine selectedOrder = showOrder.getSelectionModel().getSelectedItem();
         controller1.order.remove(selectedOrder);
-        ordersStage2.remove(selectedOrder);
+        controller1.orderLines.remove(selectedOrder);
     }
 
     /**
@@ -119,15 +117,13 @@ public class Controller2 implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        ordersStage2.addAll(controller1.order.getOrderLines());
-
-        for(OrderLine o:controller1.order.getOrderLines()) {
+        for(OrderLine o:controller1.orderLines) {
             System.out.println(o);
         }
-        System.out.println(controller1.order.totalPrice());
+        System.out.println(controller1.order.totalPrice() + " " + controller1.orderLines.size());
 
 
-        showOrder.setItems(ordersStage2);
+        showOrder.setItems(controller1.orderLines);
         orderPrice.appendText("$" + controller1.order.totalPrice());
     }
 
