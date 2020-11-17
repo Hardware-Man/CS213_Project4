@@ -5,7 +5,7 @@ package functions;
  * @author Kaivalya Mishra, Ridwanur Sarder
  */
 public class Extra {
-    private String name;
+    private final String name;
 
     /**
      * Getter method for ingredient name

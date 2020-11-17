@@ -2,10 +2,10 @@ package app;
 
 import functions.Order;
 import functions.OrderLine;
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
-import javafx.stage.Stage;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -28,16 +28,13 @@ public class Controller2 implements Initializable {
     @FXML
     private TextField orderPrice;
 
-    @FXML
-    private Button backButton;
-
     /**
      * Clears all the sandwiches in the order
      */
     @FXML
     void clearOrder() {
-        Controller1.orderLines.clear();
         Controller1.order.clear();
+        showOrder.setItems(FXCollections.observableArrayList(Controller1.order.getOrderLines()));
         orderPrice.clear();
         orderPrice.appendText("$" + moneyFormat.format(Controller1.order.totalPrice()));
     }
@@ -47,8 +44,7 @@ public class Controller2 implements Initializable {
      */
     @FXML
     void closeWindow() {
-        Stage stage = (Stage) backButton.getScene().getWindow();
-        stage.close();
+        Controller1.stage.close();
     }
 
     /**
@@ -61,7 +57,7 @@ public class Controller2 implements Initializable {
             OrderLine newOrder = new OrderLine(Order.getLineNumber() + 1,
                     selectedOrder.getSandwich(), selectedOrder.getSandwich().price());
             Controller1.order.add(newOrder);
-            Controller1.orderLines.add(newOrder);
+            showOrder.setItems(FXCollections.observableArrayList(Controller1.order.getOrderLines()));
             orderPrice.clear();
             orderPrice.appendText("$" + moneyFormat.format(Controller1.order.totalPrice()));
         }
@@ -75,7 +71,7 @@ public class Controller2 implements Initializable {
         File fileToExport = new File("Order.txt");
         try{
             PrintWriter output = new PrintWriter(fileToExport);
-            for(OrderLine o:Controller1.orderLines){
+            for(OrderLine o:Controller1.order.getOrderLines()){
                 output.write(o.toString() + "\n");
             }
             Alert a = new Alert(Alert.AlertType.CONFIRMATION);
@@ -93,10 +89,9 @@ public class Controller2 implements Initializable {
     void removeOrder() {
         OrderLine selectedOrder = showOrder.getSelectionModel().getSelectedItem();
         Controller1.order.remove(selectedOrder);
-        Controller1.orderLines.remove(selectedOrder);
+        showOrder.setItems(FXCollections.observableArrayList(Controller1.order.getOrderLines()));
         orderPrice.clear();
         orderPrice.appendText("$" + moneyFormat.format(Controller1.order.totalPrice()));
-
     }
 
     /**
@@ -106,9 +101,7 @@ public class Controller2 implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        showOrder.setItems(Controller1.orderLines);
+        showOrder.setItems(FXCollections.observableArrayList(Controller1.order.getOrderLines()));
         orderPrice.appendText("$" + moneyFormat.format(Controller1.order.totalPrice()));
     }
-
-
 }

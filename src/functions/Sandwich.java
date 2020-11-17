@@ -16,28 +16,28 @@ public abstract class Sandwich implements Customizable {
 
     public abstract double price();
 
+    public abstract String[] basicIng();
+
     /**
      * Returns a formatted string of sandwich ingredients separated by newlines
-     * @param ingredients basic ingredients of sandwich
      * @return formatted string
      */
-    public String getBasicIngredients(Extra[] ingredients){
+    public String getBasicIngredients(){
         String ingredientString = "";
-        for(Extra e:ingredients){
-            ingredientString = ingredientString.concat(e.getName() + "\n");
+        for(String e:basicIng()){
+            ingredientString = ingredientString.concat(e + "\n");
         }
         return ingredientString;
     }
 
     /**
      * Returns a formatted string of sandwich ingredients separated by commas
-     * @param ingredients basic ingredients of sandwich
      * @return formatted string
      */
-    public String getBasicIngredientsOrderDetails(Extra[] ingredients){
+    public String getBasicIngredientsOrderDetails(){
         String ingredientString = "";
-        for(Extra e:ingredients){
-            ingredientString = ingredientString.concat(e.getName() + ", ");
+        for(String e:basicIng()){
+            ingredientString = ingredientString.concat(e + ", ");
         }
         return ingredientString;
     }
@@ -88,9 +88,8 @@ public abstract class Sandwich implements Customizable {
     /**
      * Adds a list of ingredients to sandwich
      * @param list list of ingredients to add
-     * @param <Extra> Object type(Extra)
      */
-    public<Extra> void addAll(ObservableList<Extra> list){
+    public void addAll(ObservableList<Extra> list){
         for(Extra e:list){
             if(!add(e))return;
         }
@@ -107,7 +106,7 @@ public abstract class Sandwich implements Customizable {
 
     /**
      * Checks if there's enough space to add a list of ingredients to sandwich
-     * @param list
+     * @param list input list
      * @param <T> type of list(Extra)
      * @return true if there is space, false otherwise
      */
@@ -135,9 +134,8 @@ public abstract class Sandwich implements Customizable {
     /**
      * Removes all the ingredients in a list from sandwich
      * @param list of ingredients to remove
-     * @param <Extra> object type
      */
-    public<Extra> void removeAll(ObservableList<Extra> list){
+    public void removeAll(ObservableList<Extra> list){
         for(Extra e:list){
             if(!remove(e))return;
         }

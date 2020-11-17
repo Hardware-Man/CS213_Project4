@@ -18,6 +18,8 @@ public class Main extends Application {
         primaryStage.setTitle("Sandwich Ordering");
         primaryStage.setScene(new Scene(root, 712, 460));
         primaryStage.show();
+        Controller1.stage.setTitle("Order Details");
+        primaryStage.setOnCloseRequest(windowEvent -> Controller1.stage.close());
     }
 
 

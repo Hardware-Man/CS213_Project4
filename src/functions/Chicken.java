@@ -9,8 +9,6 @@ import java.text.DecimalFormat;
  */
 public class Chicken extends Sandwich{
 
-    public Extra[] ingredients = {new Extra("Fried Chicken"), new Extra("Spicy Sauce"),new Extra("Pickles")};
-
     /**
      * Calculates and returns price
      * @return price
@@ -22,6 +20,11 @@ public class Chicken extends Sandwich{
         return Double.parseDouble(moneyFormat.format(8.99 + extras.size()*PER_EXTRA));
     }
 
+    @Override
+    public String[] basicIng() {
+        return new String[]{"Fried Chicken", "Spicy Sauce", "Pickles"};
+    }
+
     /**
      * Returns string representation of sandwich and ingredients
      * @return String
@@ -29,8 +32,8 @@ public class Chicken extends Sandwich{
     @Override
     public String toString() {
         if (super.toString().isBlank()) {
-            return "Chicken:" + getBasicIngredientsOrderDetails(ingredients);
+            return "Chicken:" + getBasicIngredientsOrderDetails();
         }
-        return "Chicken:" + getBasicIngredientsOrderDetails(ingredients) + super.toString();
+        return "Chicken:" + getBasicIngredientsOrderDetails() + super.toString();
     }
 }

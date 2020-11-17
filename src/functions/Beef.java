@@ -8,8 +8,6 @@ import java.text.DecimalFormat;
  */
 public class Beef extends Sandwich {
 
-    public Extra[] ingredients = {new Extra("Roast Beef"), new Extra("Provolone Cheese"),new Extra("Mustard")};
-
     /**
      * Calculates and returns price
      * @return price
@@ -21,6 +19,11 @@ public class Beef extends Sandwich {
         return Double.parseDouble(moneyFormat.format(10.99 + extras.size()*PER_EXTRA));
     }
 
+    @Override
+    public String[] basicIng() {
+        return new String[]{"Roast Beef", "Provolone Cheese", "Mustard"};
+    }
+
     /**
      * Returns string representation of sandwich and ingredients
      * @return String
@@ -28,8 +31,8 @@ public class Beef extends Sandwich {
     @Override
     public String toString() {
         if (super.toString().isBlank()) {
-            return "Beef:" + getBasicIngredientsOrderDetails(ingredients);
+            return "Beef:" + getBasicIngredientsOrderDetails();
         }
-        return "Beef:" + getBasicIngredientsOrderDetails(ingredients) + super.toString();
+        return "Beef:" + getBasicIngredientsOrderDetails() + super.toString();
     }
 }

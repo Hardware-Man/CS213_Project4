@@ -13,7 +13,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
-
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -24,19 +23,15 @@ import java.util.ResourceBundle;
  * @author Kaivalya Mishra, Ridwanur Sarder
  */
 public class Controller1 implements Initializable {
-    @FXML
+
     private final Image chickenImage = new Image("chicken.png");
 
-    @FXML
     private final Image fishImage = new Image("fish.png");
 
-    @FXML
     private final Image beefImage = new Image("beef.png");
 
-    @FXML
     private final ObservableList<String> sandwiches = FXCollections.observableArrayList("Chicken","Beef","Fish");
 
-    @FXML
     private final ObservableList<Extra> extraIngList = FXCollections.observableArrayList(
             new Extra("Lettuce"),new Extra("Tomatoes"),
             new Extra("Olives"),new Extra("Mozzarella"),
@@ -45,17 +40,11 @@ public class Controller1 implements Initializable {
             new Extra("Avocado"),new Extra("Ketchup")
     );
 
-    @FXML
     private final ObservableList<Extra> chosenIngList = FXCollections.observableArrayList();
 
-    @FXML
     private Sandwich sandwich;
 
-    @FXML
     static Order order = new Order();
-
-    @FXML
-    static ObservableList<OrderLine> orderLines = FXCollections.observableArrayList(order.getOrderLines());
 
     @FXML
     private Button orderDetailsButton;
@@ -80,6 +69,8 @@ public class Controller1 implements Initializable {
 
     @FXML
     private Button addToOrderButton;
+
+    static final Stage stage = new Stage();
 
 
     /**
@@ -128,28 +119,25 @@ public class Controller1 implements Initializable {
 
     /**
      * Adds an order line to order for current sandwich
+     * @throws IOException Checks for IOException
      */
     @FXML
-    void addToOrderPress() {
+    void addToOrderPress() throws IOException {
         OrderLine orderline = new OrderLine(Order.getLineNumber() + 1,sandwich,sandwich.price());
         order.add(orderline);
         pickSandwichType();
-        orderLines = FXCollections.observableArrayList(order.getOrderLines());
+        if (stage.isShowing()) openOrders();
     }
 
     /**
      * Opens order details window
-     * @throws IOException a
+     * @throws IOException Checks for IOException
      */
     @FXML
     void openOrders() throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("stage2.fxml"));
         Parent root = loader.load();
-        Stage stage = new Stage();
-        stage.setTitle("Order Details");
         stage.setScene(new Scene(root));
-        orderDetailsButton.setDisable(true);
-        addToOrderButton.setDisable(true);
         stage.setOnCloseRequest(windowEvent -> {
             orderDetailsButton.setDisable(false);
             addToOrderButton.setDisable(false);
@@ -167,19 +155,19 @@ public class Controller1 implements Initializable {
                 sandwich = new Chicken();
                 basicIngredientBox.clear();
                 imageSandwich.setImage(chickenImage);
-                basicIngredientBox.appendText(sandwich.getBasicIngredients(((Chicken) sandwich).ingredients));
+                basicIngredientBox.appendText(sandwich.getBasicIngredients());
             }
             case "Beef" -> {
                 sandwich = new Beef();
                 basicIngredientBox.clear();
                 imageSandwich.setImage(beefImage);
-                basicIngredientBox.appendText(sandwich.getBasicIngredients(((Beef) sandwich).ingredients));
+                basicIngredientBox.appendText(sandwich.getBasicIngredients());
             }
             case "Fish" -> {
                 sandwich = new Fish();
                 basicIngredientBox.clear();
-                basicIngredientBox.appendText(sandwich.getBasicIngredients(((Fish) sandwich).ingredients));
                 imageSandwich.setImage(fishImage);
+                basicIngredientBox.appendText(sandwich.getBasicIngredients());
             }
         }
         sandwich.addAll(chosenIngList);
@@ -199,7 +187,7 @@ public class Controller1 implements Initializable {
         sandwichTypeDropdown.getSelectionModel().select(0);
 
         imageSandwich.setImage(chickenImage);
-        basicIngredientBox.appendText(new Chicken().getBasicIngredients(new Chicken().ingredients));
+        basicIngredientBox.appendText(new Chicken().getBasicIngredients());
 
         availableIngredients.setItems(extraIngList);
         chosenIngredients.setItems(chosenIngList);
