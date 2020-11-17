@@ -123,7 +123,7 @@ public class Controller1 implements Initializable {
      */
     @FXML
     void addToOrderPress() throws IOException {
-        OrderLine orderline = new OrderLine(Order.getLineNumber() + 1,sandwich,sandwich.price());
+        OrderLine orderline = new OrderLine(Order.lineNumber + 1,sandwich,sandwich.price());
         order.add(orderline);
         pickSandwichType();
         if (stage.isShowing()) openOrders();

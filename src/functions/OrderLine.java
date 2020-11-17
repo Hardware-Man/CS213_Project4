@@ -30,6 +30,14 @@ public class OrderLine {
     }
 
     /**
+     * Getter method for order price
+     * @return price
+     */
+    public double getOrderLinePrice() {
+        return price;
+    }
+
+    /**
      * Getter method for line number
      * @return line number
      */
@@ -51,7 +59,7 @@ public class OrderLine {
      */
     @Override
     public String toString() {
-        return lineNumber  + ", " + sandwich.toString()+ ", $" + price;
+        return lineNumber  + ", " + sandwich.toString() + ", $" + price;
     }
 
     /**

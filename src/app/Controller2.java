@@ -36,7 +36,7 @@ public class Controller2 implements Initializable {
         Controller1.order.clear();
         showOrder.setItems(FXCollections.observableArrayList(Controller1.order.getOrderLines()));
         orderPrice.clear();
-        orderPrice.appendText("$" + moneyFormat.format(Controller1.order.totalPrice()));
+        orderPrice.appendText("$" + moneyFormat.format(0));
     }
 
     /**
@@ -54,12 +54,10 @@ public class Controller2 implements Initializable {
     void duplicateOrder() {
         OrderLine selectedOrder = showOrder.getSelectionModel().getSelectedItem();
         if(selectedOrder != null) {
-            OrderLine newOrder = new OrderLine(Order.getLineNumber() + 1,
-                    selectedOrder.getSandwich(), selectedOrder.getSandwich().price());
+            OrderLine newOrder = new OrderLine(Order.lineNumber + 1,
+                    selectedOrder.getSandwich(), selectedOrder.getOrderLinePrice());
             Controller1.order.add(newOrder);
-            showOrder.setItems(FXCollections.observableArrayList(Controller1.order.getOrderLines()));
-            orderPrice.clear();
-            orderPrice.appendText("$" + moneyFormat.format(Controller1.order.totalPrice()));
+            resetView();
         }
     }
 
@@ -89,9 +87,7 @@ public class Controller2 implements Initializable {
     void removeOrder() {
         OrderLine selectedOrder = showOrder.getSelectionModel().getSelectedItem();
         Controller1.order.remove(selectedOrder);
-        showOrder.setItems(FXCollections.observableArrayList(Controller1.order.getOrderLines()));
-        orderPrice.clear();
-        orderPrice.appendText("$" + moneyFormat.format(Controller1.order.totalPrice()));
+        resetView();
     }
 
     /**
@@ -102,6 +98,20 @@ public class Controller2 implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         showOrder.setItems(FXCollections.observableArrayList(Controller1.order.getOrderLines()));
-        orderPrice.appendText("$" + moneyFormat.format(Controller1.order.totalPrice()));
+        double price = 0;
+        for(OrderLine o:Controller1.order.getOrderLines()){
+            price += o.getOrderLinePrice();
+        }
+        orderPrice.appendText("$" + moneyFormat.format(price));
+    }
+
+    void resetView() {
+        showOrder.setItems(FXCollections.observableArrayList(Controller1.order.getOrderLines()));
+        orderPrice.clear();
+        double price = 0;
+        for(OrderLine o:Controller1.order.getOrderLines()){
+            price += o.getOrderLinePrice();
+        }
+        orderPrice.appendText("$" + moneyFormat.format(price));
     }
 }

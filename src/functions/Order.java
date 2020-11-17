@@ -1,7 +1,7 @@
 package functions;
 
-import java.text.DecimalFormat;
 import java.util.ArrayList;
+
 /**
  *Class representing an entire Order
  *
@@ -9,14 +9,7 @@ import java.util.ArrayList;
  */
 public class Order implements Customizable {
     public static int lineNumber;
-    private final ArrayList<OrderLine> orderLines = new ArrayList<>();
-
-    /**
-     * Resets number of lines to zero
-     */
-    public void resetLineNumber() {
-        lineNumber = 0;
-    }
+    private ArrayList<OrderLine> orderLines = new ArrayList<>();
 
     /**
      * Default constructor for order
@@ -31,14 +24,6 @@ public class Order implements Customizable {
      */
     public ArrayList<OrderLine> getOrderLines(){
         return orderLines;
-    }
-
-    /**
-     * Getter method for number of lines
-     * @return line number
-     */
-    public static int getLineNumber() {
-        return lineNumber;
     }
 
     /**
@@ -75,24 +60,10 @@ public class Order implements Customizable {
     }
 
     /**
-     * Clears an entire order
+     * Clears an entire order and resets lineNumber
      */
     public void clear(){
         orderLines.clear();
-        resetLineNumber();
+        lineNumber = 0;
     }
-
-    /**
-     * Returns total price across all lines of the order
-     * @return total price
-     */
-    public double totalPrice(){
-        DecimalFormat moneyFormat = new DecimalFormat("0.00");
-        double price = 0;
-        for(OrderLine o:orderLines){
-            price += o.getSandwich().price();
-        }
-        return Double.parseDouble(moneyFormat.format(price));
-    }
-
 }
